@@ -1,0 +1,39 @@
+<div class="container">
+
+    <form #filter="ngForm" class="d-flex justify-content-start align-items-center">
+        <input class="form-control " placeholder="Booking Date" name="dp2" [(ngModel)]="userviewContainer.bookDate" ngbTooltip="Booking Date" ngbDatepicker #d1="ngbDatepicker" [readonly]="true" [minDate]="today">
+        <button class="btn btn-outline-secondary calendar btn-calender" (click)="d1.toggle()" type="button"></button>
+        <input required class="form-control form-control-range " type="number" [min]="0" [max]="24" ngbTooltip="Booking hour" placeholder="Hour Of Booking" name="hour" [(ngModel)]="userviewContainer.hour" (ngModelChange)="userviewContainer.hour > 24 ?  userviewContainer.hour = 1 : null"
+            style="margin-right: 5px;" />
+        <input required class="form-control form-control-range " type="number" [min]="1" ngbTooltip="Number Of Persons" placeholder="Number Of Persons" name="noOfPersons" [(ngModel)]="userviewContainer.noOfPersons" style="margin-right: 5px;" />
+        <button [disabled]="filter.form.invalid" class=" btn btn-primary form-control" (click)="userviewContainer.getAvaiableTables(1)">Search For Tables</button>
+
+    </form>
+    <div class="spinner-border text-primary" *ngIf="userviewContainer.loading" role="userviewContainer.loading">
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4 card  mr-3" *ngFor="let table of userviewContainer.tables">
+            <img class="card-img-top" src="/assets/tablecover.jpg">
+            <div class="card-block">
+                <h4 class="card-title">table number : {{table.number}} </h4>
+                <div class="meta">
+                </div>
+                <div class="card-text">
+                    Maximum number of people :{{table.maxNumberOfPersons}}
+
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary form-control float-right btn-sm " value="{{table.id}}" (click)="bookTable($event)">Book</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="userviewContainer.totalElements >userviewContainer.pageSize" class="d-flex justify-content-between pagination">
+        <ngb-pagination [collectionSize]="userviewContainer.totalElements" [maxSize]="5" [(page)]="userviewContainer.pageIndex" [pageSize]="userviewContainer.pageSize" (pageChange)="userviewContainer.getAvaiableTables($event)">
+        </ngb-pagination>
+    </div>
+
+</div>

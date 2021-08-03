@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add New Table</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <input class="form-control form-control-range  " type="number" ngbTooltip="Table Number" placeholder="Table number" [(ngModel)]="tableRestaurant.number" style="margin-bottom: 10px;" />
+    <input class="form-control form-control-range mr-3 " type="number" ngbTooltip="Max Number Of Person" placeholder="Max number of persons" [(ngModel)]="tableRestaurant.maxNumberOfPersons" style="margin-bottom: 10px;" />
+
+    <div class="modal-footer">
+        <div>
+            <button type="button" class="btn btn-outline-dark" (click)="addTable()" [disabled]="! tableRestaurant.number && ! tableRestaurant.maxNumberOfPersons">
+      Save
+    </button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+      Cancel
+    </button>
+        </div>
+
+    </div>

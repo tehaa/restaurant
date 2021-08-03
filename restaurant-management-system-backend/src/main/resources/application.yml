@@ -1,0 +1,48 @@
+
+server:
+  port: ${PORT:8060}
+  
+
+spring:
+  application:
+    name: restaurant-managment-system
+  profiles:
+     active: development
+  mail:
+     host: smtp.gmail.com
+     port: 587
+     username: ahmedabdelrhman414@gmail.com      
+     password: 12345ahmed
+     properties:
+       mail:
+         smtp:
+           auth: true
+           starttls: 
+             enable: true
+
+  datasource:
+    url: jdbc:mysql://${DATABASE_URL:162.243.173.194:3306}/restaurant?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:tehanagm}
+    driverClassName: com.mysql.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10 
+      
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+      
+jwt:
+  secret: restaurant
+  validity: 6000000
+  
+  
+logging:
+   level:
+      com:
+         demo:
+            restaurant: debug
+      springfox:
+         documentation: info   
